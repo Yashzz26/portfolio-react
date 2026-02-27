@@ -1,6 +1,6 @@
-/* --- MODERN DARK THEME: "TECH SLATE" (Updated for New Projects Section) --- */
+/* --- MODERN THEMES: DARK AND LIGHT --- */
 
-/* CSS Variables for easy color changes */
+/* CSS Variables for dark theme */
 :root {
   --background-color: #1a1a2d;
   --primary-text: #e0e0e0;
@@ -10,6 +10,18 @@
   --accent-color: #007bff;
   --accent-hover: #0056b3;
   --border-color: #40405a;
+}
+
+/* Light theme variables */
+.light-theme {
+  --background-color: #f8f9fa;
+  --primary-text: #212529;
+  --secondary-text: #6c757d;
+  --card-background: #ffffff;
+  --header-background: #e9ecef;
+  --accent-color: #007bff;
+  --accent-hover: #0056b3;
+  --border-color: #dee2e6;
 }
 
 * {
@@ -45,12 +57,10 @@ header {
 .profile-pic {
   display: block;
   margin: 0 auto 20px;
-  width: 160px;
-  height: 160px;
+  width: 250px;
+  height: 250px;
   object-fit: cover;
   border-radius: 50%;
-  border: 5px solid var(--accent-color);
-  box-shadow: 0 0 15px rgba(0, 123, 255, 0.4);
 }
 
 /* Headings */
