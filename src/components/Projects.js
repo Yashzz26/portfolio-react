@@ -3,6 +3,14 @@ import React from "react";
 const Projects = () => {
   const projects = [
     {
+      title: "Full Stack Villa Booking",
+      description:
+        "A comprehensive villa booking platform where users can browse available villas, view detailed information, check availability, and make reservations. Features an admin panel for managing villas, bookings, and user reservations with full CRUD operations.",
+      userLink: "#",
+      adminLink: "#",
+      isDualButton: true,
+    },
+    {
       title: "Chronix - E-Commerce Watch Store",
       description:
         "A sleek and responsive e-commerce front-end for a luxury watch store. Features a modern UI, detailed product pages, a functional shopping cart, and a simulated checkout process, all built with vanilla HTML, CSS, and JavaScript.",
@@ -13,12 +21,6 @@ const Projects = () => {
       description:
         "A user-friendly weather application that provides real-time weather data using an external API. It features a clean interface, hourly/daily forecasts, dynamic weather icons, and details like humidity and wind speed.",
       link: "https://yashzz26.github.io/Weather-App/",
-    },
-    {
-      title: "Interactive Recipe Card",
-      description:
-        "A visually appealing and responsive recipe card website. This project showcases strong CSS skills with a focus on layout, hover effects, and a clean presentation of cooking instructions, ingredients, and nutritional information.",
-      link: "http://guileless-haupia-69e207.netlify.app",
     },
     {
       title: "SmartSpend - Expense Tracker App",
@@ -34,11 +36,38 @@ const Projects = () => {
       <div className="project-list">
         {projects.map((project, index) => (
           <div key={index} className="project-card">
-            <h3>{project.title}</h3>
-            <p>{project.description}</p>
-            <a href={project.link} target="_blank" rel="noopener noreferrer">
-              View Project
-            </a>
+            <div className="project-card-header">
+              <h3>{project.title}</h3>
+            </div>
+            <p className="project-description">{project.description}</p>
+            <div className="project-links">
+              {project.isDualButton ? (
+                <>
+                  <a
+                    href={project.userLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-user">
+                    User Portal
+                  </a>
+                  <a
+                    href={project.adminLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-admin">
+                    Admin Portal
+                  </a>
+                </>
+              ) : (
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-primary">
+                  View Project
+                </a>
+              )}
+            </div>
           </div>
         ))}
       </div>

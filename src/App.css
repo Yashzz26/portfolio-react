@@ -90,60 +90,120 @@ ul li {
 /* --- UPDATED PROJECTS SECTION STYLING --- */
 .project-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
   margin-top: 20px;
 }
 
 .project-card {
-  background-color: var(--card-background);
-  padding: 25px;
-  border-radius: 12px;
+  background: linear-gradient(145deg, var(--card-background), #353550);
+  padding: 30px;
+  border-radius: 16px;
   border: 1px solid var(--border-color);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   display: flex;
   flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-color), #00d4ff);
 }
 
 .project-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  transform: translateY(-12px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
-.project-card h3 {
-  margin-bottom: 10px;
-  color: var(--accent-color);
-}
-
-.project-card p {
-  font-size: 0.95rem;
-  color: var(--secondary-text);
-  flex-grow: 1;
+.project-card-header {
   margin-bottom: 15px;
 }
 
-.project-card a {
-  display: inline-block;
-  margin-top: 5px;
-  margin-right: 10px;
-  color: #fff;
-  background-color: var(--accent-color);
-  padding: 8px 16px;
-  border-radius: 6px;
-  text-decoration: none;
+.project-card h3 {
+  margin-bottom: 0;
+  color: var(--primary-text);
+  font-size: 1.3rem;
   font-weight: 600;
-  transition:
-    background-color 0.3s,
-    transform 0.2s;
-  text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
-.project-card a:hover {
-  background-color: var(--accent-hover);
-  transform: scale(1.05);
+.project-description {
+  font-size: 0.95rem;
+  color: var(--secondary-text);
+  flex-grow: 1;
+  margin-bottom: 20px;
+  line-height: 1.7;
+}
+
+.project-links {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: auto;
+}
+
+.project-card a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  flex: 1;
+  min-width: 120px;
+}
+
+/* Primary button for single link projects */
+.btn-primary {
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent-color), #0056b3);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #0056b3, #004494);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 123, 255, 0.4);
+  text-decoration: none;
+}
+
+/* User Portal button */
+.btn-user {
+  color: #fff;
+  background: linear-gradient(135deg, #10b981, #059669);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.btn-user:hover {
+  background: linear-gradient(135deg, #059669, #047857);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+  text-decoration: none;
+}
+
+/* Admin Portal button */
+.btn-admin {
+  color: #fff;
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+.btn-admin:hover {
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(139, 92, 246, 0.4);
   text-decoration: none;
 }
 
