@@ -364,3 +364,54 @@ footer {
     font-size: 0.9rem;
   }
 }
+
+/* --- SCROLL ANIMATIONS --- */
+
+/* Base hidden state */
+.scroll-hidden {
+  opacity: 0;
+  transition: all 0.6s ease-out;
+}
+
+/* Visible state */
+.scroll-visible {
+  opacity: 1;
+  transform: translate(0, 0) scale(1) !important;
+}
+
+/* Fade from left */
+.scroll-hidden.from-left {
+  transform: translateX(-60px);
+}
+
+/* Fade from right */
+.scroll-hidden.from-right {
+  transform: translateX(60px);
+}
+
+/* Fade from bottom */
+.scroll-hidden.from-bottom {
+  transform: translateY(50px);
+}
+
+/* Fade + scale up */
+.scroll-hidden.from-scale {
+  transform: scale(0.9);
+}
+
+/* Staggered card delays */
+.scroll-hidden.stagger-1 { transition-delay: 0ms; }
+.scroll-hidden.stagger-2 { transition-delay: 100ms; }
+.scroll-hidden.stagger-3 { transition-delay: 200ms; }
+.scroll-hidden.stagger-4 { transition-delay: 300ms; }
+.scroll-hidden.stagger-5 { transition-delay: 400ms; }
+.scroll-hidden.stagger-6 { transition-delay: 500ms; }
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-hidden {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

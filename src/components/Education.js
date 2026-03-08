@@ -1,6 +1,9 @@
 import React from "react";
+import useScrollAnimation from "../hooks/useScrollAnimation";
 
 const Education = () => {
+  const { ref, isVisible } = useScrollAnimation();
+
   const education = [
     {
       degree: "B.Tech in Artificial Intelligence & Data Science",
@@ -21,7 +24,10 @@ const Education = () => {
   ];
 
   return (
-    <section id="education">
+    <section
+      id="education"
+      ref={ref}
+      className={`scroll-hidden from-right ${isVisible ? "scroll-visible" : ""}`}>
       <h2>Education</h2>
       <ul>
         {education.map((item, index) => (

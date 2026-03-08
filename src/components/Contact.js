@@ -1,9 +1,12 @@
 import React from "react";
+import useScrollAnimation from "../hooks/useScrollAnimation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons";
 
 const Contact = () => {
+  const { ref, isVisible } = useScrollAnimation();
+
   const contactInfo = [
     {
       icon: faEnvelope,
@@ -32,7 +35,10 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact">
+    <section
+      id="contact"
+      ref={ref}
+      className={`scroll-hidden from-bottom ${isVisible ? "scroll-visible" : ""}`}>
       <h2>Contact Me</h2>
       <div className="contact-wrapper">
         <p className="contact-intro">

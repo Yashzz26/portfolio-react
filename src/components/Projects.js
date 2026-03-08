@@ -1,6 +1,9 @@
 import React from "react";
+import useScrollAnimation from "../hooks/useScrollAnimation";
 
 const Projects = () => {
+  const { ref, isVisible } = useScrollAnimation();
+
   const projects = [
     {
       title: "Full Stack Villa Booking",
@@ -31,11 +34,13 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects">
+    <section id="projects" ref={ref}>
       <h2>Projects</h2>
       <div className="project-list">
         {projects.map((project, index) => (
-          <div key={index} className="project-card">
+          <div
+            key={index}
+            className={`project-card scroll-hidden from-bottom stagger-${index + 1} ${isVisible ? "scroll-visible" : ""}`}>
             <div className="project-card-header">
               <h3>{project.title}</h3>
             </div>

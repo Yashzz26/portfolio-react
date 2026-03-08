@@ -1,4 +1,5 @@
 import React from "react";
+import useScrollAnimation from "../hooks/useScrollAnimation";
 import LogoLoop from "./LogoLoop";
 import {
   SiHtml5,
@@ -13,10 +14,12 @@ import {
   SiBootstrap,
   SiTailwindcss,
 } from "react-icons/si";
-import { FaServer, FaMobileAlt, FaRocket } from "react-icons/fa";
+import { FaMobileAlt, FaRocket } from "react-icons/fa";
 import "./LogoLoop.css";
 
 const Skills = () => {
+  const { ref, isVisible } = useScrollAnimation();
+
   const techLogos = [
     { node: <SiHtml5 />, title: "HTML5" },
     { node: <SiCss3 />, title: "CSS3" },
@@ -34,7 +37,10 @@ const Skills = () => {
   ];
 
   return (
-    <section id="skills" className="py-5">
+    <section
+      id="skills"
+      className={`py-5 scroll-hidden from-bottom ${isVisible ? "scroll-visible" : ""}`}
+      ref={ref}>
       <div className="container">
         <h2 className="text-center mb-4">Skills</h2>
         <div
