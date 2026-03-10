@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 
+const phrases = [
+  "Aspiring Full Stack Developer",
+  "MERN Stack Developer",
+  "Creative Problem Solver",
+  "Tech Enthusiast",
+];
+
 const Header = () => {
   const { isDarkMode, toggleTheme } = useContext(ThemeContext);
-  const phrases = [
-    "Aspiring Full Stack Developer",
-    "MERN Stack Developer",
-    "Creative Problem Solver",
-    "Tech Enthusiast",
-  ];
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [letterIndex, setLetterIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -35,16 +36,33 @@ const Header = () => {
     }
 
     return () => clearTimeout(timeout);
-  }, [letterIndex, isDeleting, phraseIndex, phrases]);
+  }, [letterIndex, isDeleting, phraseIndex]);
 
   return (
     <header className="header-animated-bg">
-      <button
-        className="theme-toggle btn btn-outline-primary position-absolute top-0 end-0 m-3"
-        onClick={toggleTheme}
-        aria-label="Toggle theme">
-        {isDarkMode ? "☀️" : "🌙"}
-      </button>
+      <div className="theme-switch-wrapper">
+        <div 
+          className={`theme-switch ${isDarkMode ? "dark" : "light"}`} 
+          onClick={toggleTheme}
+          title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+        >
+          <div className="theme-orb">
+            <div className="crater crater-1"></div>
+            <div className="crater crater-2"></div>
+            <div className="crater crater-3"></div>
+            {[...Array(8)].map((_, i) => (
+              <div key={i} className={`ray ray-${i + 1}`}></div>
+            ))}
+          </div>
+          <div className="theme-decorations">
+            <div className="star star-1"></div>
+            <div className="star star-2"></div>
+            <div className="star star-3"></div>
+            <div className="cloud cloud-1"></div>
+            <div className="cloud cloud-2"></div>
+          </div>
+        </div>
+      </div>
       <div className="profile-container">
         <img
           src={process.env.PUBLIC_URL + "/photo.jpg"}
