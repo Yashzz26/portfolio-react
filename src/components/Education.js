@@ -29,11 +29,14 @@ const Education = () => {
       ref={ref}
       className={`scroll-hidden from-right ${isVisible ? "scroll-visible" : ""}`}>
       <h2>Education</h2>
-      <ul>
+      <ul className="education-list">
         {education.map((item, index) => (
-          <li key={index}>
-            <b>{item.degree}</b> — {item.school && `${item.school}, `}
-            {item.year}
+          <li key={index} className="education-card">
+            <div className="education-degree">{item.degree}</div>
+            <div className="education-meta">
+              {item.school && `${item.school}  ·  `}
+              {item.year}
+            </div>
           </li>
         ))}
       </ul>

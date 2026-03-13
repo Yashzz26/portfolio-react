@@ -295,7 +295,7 @@ const GitHubStats = () => {
               </div>
             </div>
             <div className="gh-stat-card">
-              <span className="gh-stat-icon">⭐</span>
+              <span className="gh-stat-icon">🔗</span>
               <div className="gh-stat-info">
                 <span className="gh-stat-value">
                   {userData?.following || 0}

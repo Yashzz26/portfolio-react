@@ -3,7 +3,9 @@ import React from "react";
 const Footer = () => {
   return (
     <footer>
-      <p>&copy; 2025 Yash Bhadane. All rights reserved.</p>
+      <p>
+        &copy; {new Date().getFullYear()} Yash Bhadane. All rights reserved.
+      </p>
     </footer>
   );
 };

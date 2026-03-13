@@ -3,7 +3,7 @@ import useScrollAnimation from "../hooks/useScrollAnimation";
 import LogoLoop from "./LogoLoop";
 import {
   SiHtml5,
-  SiCss3,
+  SiCsswizardry,
   SiJavascript,
   SiReact,
   SiNodedotjs,
@@ -22,7 +22,7 @@ const Skills = () => {
 
   const techLogos = [
     { node: <SiHtml5 />, title: "HTML5" },
-    { node: <SiCss3 />, title: "CSS3" },
+    { node: <SiCsswizardry />, title: "CSS3" },
     { node: <SiJavascript />, title: "JavaScript (ES6+)" },
     { node: <SiReact />, title: "React.js" },
     { node: <SiNodedotjs />, title: "Node.js" },
@@ -44,16 +44,16 @@ const Skills = () => {
       <div className="container">
         <h2 className="text-center mb-4">Skills</h2>
         <div
-          style={{ height: "180px", position: "relative", overflow: "hidden" }}>
+          style={{ height: "120px", position: "relative", overflow: "hidden" }}>
           <LogoLoop
             logos={techLogos}
-            speed={120}
+            speed={80}
             direction="left"
-            logoHeight={80}
-            gap={50}
-            hoverSpeed={30}
+            logoHeight={48}
+            gap={40}
+            hoverSpeed={20}
             scaleOnHover
-            fadeOut={false}
+            fadeOut={true}
             ariaLabel="Technology skills"
             renderItem={(item, key) => (
               <div
@@ -64,18 +64,21 @@ const Skills = () => {
                   alignItems: "center",
                   justifyContent: "center",
                   color: "var(--primary-text)",
-                  padding: "10px 5px",
-                  width: "360px",
-                  minWidth: "360px",
+                  padding: "8px 12px",
+                  width: "90px",
+                  minWidth: "90px",
                 }}>
-                {item.node}
+                <span
+                  style={{ fontSize: "32px", lineHeight: 1, display: "flex" }}>
+                  {item.node}
+                </span>
                 <span
                   style={{
-                    fontSize: "18px",
-                    marginTop: "10px",
+                    fontSize: "11px",
+                    marginTop: "8px",
                     textAlign: "center",
                     whiteSpace: "nowrap",
-                    width: "100%",
+                    color: "var(--secondary-text)",
                   }}>
                   {item.title}
                 </span>

@@ -8,7 +8,6 @@ import Education from "./components/Education";
 import Projects from "./components/Projects";
 import Resume from "./components/Resume";
 import Contact from "./components/Contact";
-import MusicPlayer from "./components/MusicPlayer";
 import Footer from "./components/Footer";
 
 function App() {
@@ -23,7 +22,6 @@ function App() {
         <Projects />
         <Resume />
         <Contact />
-        <MusicPlayer />
       </div>
       <Footer />
     </div>

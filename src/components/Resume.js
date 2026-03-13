@@ -10,8 +10,11 @@ const Resume = () => {
       ref={ref}
       className={`scroll-hidden from-scale ${isVisible ? "scroll-visible" : ""}`}>
       <h2>Resume</h2>
-      <a href="#" className="resume-btn" download>
-        Download Resume
+<a
+        href="mailto:yashbhadane483@gmail.com?subject=Resume%20Request"
+        className="resume-btn"
+      >
+        Request Resume
       </a>
     </section>
   );

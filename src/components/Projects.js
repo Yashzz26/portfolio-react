@@ -38,7 +38,11 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" ref={ref}>
+    <section
+      id="projects"
+      ref={ref}
+      className={`scroll-hidden from-bottom ${isVisible ? "scroll-visible" : ""}`}
+    >
       <h2>Projects</h2>
       <div className="project-list">
         {projects.map((project, index) => (
