@@ -6,6 +6,12 @@ import "./GitHubStats.css";
 const GITHUB_USERNAME = "Yashzz26";
 const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN;
 
+if (!GITHUB_TOKEN) {
+  console.warn(
+    "REACT_APP_GITHUB_TOKEN missing. GitHub contribution data skipped.",
+  );
+}
+
 const GitHubStats = () => {
   const { ref, isVisible } = useScrollAnimation();
   const { isDarkMode } = useContext(ThemeContext);
@@ -89,7 +95,7 @@ const GitHubStats = () => {
       try {
         // Fetch user profile
         const userRes = await fetch(
-          `https://api.github.com/users/${GITHUB_USERNAME}`
+          `https://api.github.com/users/${GITHUB_USERNAME}`,
         );
         if (userRes.ok) {
           const user = await userRes.json();
@@ -124,32 +130,37 @@ const GitHubStats = () => {
           }
         `;
 
-        const graphqlRes = await fetch("https://api.github.com/graphql", {
-          method: "POST",
-          headers: {
-            Authorization: `bearer ${GITHUB_TOKEN}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ query }),
-        });
-
-        if (graphqlRes.ok) {
-          const data = await graphqlRes.json();
-          const calendar =
-            data.data.user.contributionsCollection.contributionCalendar;
-
-          // Build contribution map from GraphQL data
-          const contribMap = {};
-          calendar.weeks.forEach((week) => {
-            week.contributionDays.forEach((day) => {
-              if (day.contributionCount > 0) {
-                contribMap[day.date] = day.contributionCount;
-              }
-            });
+        if (GITHUB_TOKEN) {
+          const graphqlRes = await fetch("https://api.github.com/graphql", {
+            method: "POST",
+            headers: {
+              Authorization: `bearer ${GITHUB_TOKEN}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ query }),
           });
 
-          setContributions(contribMap);
-          setTotalContributions(calendar.totalContributions);
+          if (graphqlRes.ok) {
+            const data = await graphqlRes.json();
+            const calendar =
+              data.data.user.contributionsCollection.contributionCalendar;
+
+            // Build contribution map from GraphQL data
+            const contribMap = {};
+            calendar.weeks.forEach((week) => {
+              week.contributionDays.forEach((day) => {
+                if (day.contributionCount > 0) {
+                  contribMap[day.date] = day.contributionCount;
+                }
+              });
+            });
+
+            setContributions(contribMap);
+            setTotalContributions(calendar.totalContributions);
+          }
+        } else {
+          console.log("Skipping GraphQL: no token");
+          setTotalContributions(0);
         }
       } catch (error) {
         console.error("Error fetching GitHub data:", error);
@@ -231,8 +242,7 @@ const GitHubStats = () => {
                           const today = new Date();
                           const thisYear = today.getFullYear();
                           const isFuture = date > today;
-                          const isOutsideYear =
-                            date.getFullYear() !== thisYear;
+                          const isOutsideYear = date.getFullYear() !== thisYear;
 
                           return (
                             <div
@@ -240,8 +250,7 @@ const GitHubStats = () => {
                               className={`gh-cell ${isDarkMode ? "dark" : "light"} level-${isOutsideYear || isFuture ? "empty" : level}`}
                               onMouseEnter={(e) => {
                                 if (!isFuture && !isOutsideYear) {
-                                  const rect =
-                                    e.target.getBoundingClientRect();
+                                  const rect = e.target.getBoundingClientRect();
                                   setTooltipData({
                                     count,
                                     date: formatDisplayDate(date),
