@@ -41,8 +41,7 @@ const Projects = () => {
     <section
       id="projects"
       ref={ref}
-      className={`scroll-hidden from-bottom ${isVisible ? "scroll-visible" : ""}`}
-    >
+      className={`scroll-hidden from-bottom ${isVisible ? "scroll-visible" : ""}`}>
       <h2>Projects</h2>
       <div className="project-list">
         {projects.map((project, index) => (
@@ -54,7 +53,7 @@ const Projects = () => {
                 <h3>{project.title}</h3>
               </div>
               <p className="project-description">{project.description}</p>
-              
+
               {project.tags && (
                 <div className="project-tags">
                   {project.tags.map((tag, tIndex) => (
@@ -69,17 +68,35 @@ const Projects = () => {
                 {project.isDualButton ? (
                   <>
                     <a
-                      href={project.userLink}
+                      href={
+                        project.userLink !== "#" ? project.userLink : undefined
+                      }
+                      onClick={
+                        project.userLink === "#"
+                          ? (e) => e.preventDefault()
+                          : undefined
+                      }
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-user">
+                      className={`btn-user ${project.userLink === "#" ? "btn-disabled" : ""}`}
+                      aria-disabled={project.userLink === "#"}>
                       User Portal
                     </a>
                     <a
-                      href={project.adminLink}
+                      href={
+                        project.adminLink !== "#"
+                          ? project.adminLink
+                          : undefined
+                      }
+                      onClick={
+                        project.adminLink === "#"
+                          ? (e) => e.preventDefault()
+                          : undefined
+                      }
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-admin">
+                      className={`btn-admin ${project.adminLink === "#" ? "btn-disabled" : ""}`}
+                      aria-disabled={project.adminLink === "#"}>
                       Admin Portal
                     </a>
                   </>

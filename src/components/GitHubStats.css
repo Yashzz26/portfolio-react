@@ -1,6 +1,7 @@
 /* --- GITHUB STATS SECTION --- */
 
 .gh-container {
+  position: relative;
   padding: 10px 0;
 }
 
@@ -300,7 +301,7 @@
 
 /* Tooltip */
 .gh-tooltip {
-  position: fixed;
+  position: absolute;
   z-index: 1000;
   background-color: var(--card-background);
   color: var(--primary-text);
@@ -310,7 +311,7 @@
   font-size: 12px;
   line-height: 1.5;
   pointer-events: none;
-  transform: translate(-50%, -100%);
+  transform: translate(-50%, -110%);
   white-space: nowrap;
   box-shadow: 0 4px 12px var(--shadow-color);
 }

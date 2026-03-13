@@ -246,16 +246,24 @@ const GitHubStats = () => {
 
                           return (
                             <div
-                              key={di}
+                              key={`\${wi}-\${di}`}
                               className={`gh-cell ${isDarkMode ? "dark" : "light"} level-${isOutsideYear || isFuture ? "empty" : level}`}
                               onMouseEnter={(e) => {
                                 if (!isFuture && !isOutsideYear) {
-                                  const rect = e.target.getBoundingClientRect();
+                                  const container =
+                                    e.currentTarget.closest(".gh-container");
+                                  const containerRect =
+                                    container.getBoundingClientRect();
+                                  const cellRect =
+                                    e.target.getBoundingClientRect();
                                   setTooltipData({
                                     count,
                                     date: formatDisplayDate(date),
-                                    x: rect.left + rect.width / 2,
-                                    y: rect.top - 10,
+                                    x:
+                                      cellRect.left -
+                                      containerRect.left +
+                                      cellRect.width / 2,
+                                    y: cellRect.top - containerRect.top,
                                   });
                                 }
                               }}

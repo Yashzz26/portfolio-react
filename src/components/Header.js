@@ -39,13 +39,24 @@ const Header = () => {
   }, [letterIndex, isDeleting, phraseIndex]);
 
   return (
-    <header className="header-animated-bg">
+    <header className="header-animated-bg" style={{ position: "relative" }}>
       <div className="theme-switch-wrapper">
-        <div 
-          className={`theme-switch ${isDarkMode ? "dark" : "light"}`} 
+        <div
+          className={`theme-switch ${isDarkMode ? "dark" : "light"}`}
           onClick={toggleTheme}
-          title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-        >
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              toggleTheme();
+            }
+          }}
+          tabIndex={0}
+          role="switch"
+          aria-checked={!isDarkMode}
+          aria-label={
+            isDarkMode ? "Switch to light mode" : "Switch to dark mode"
+          }
+          title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}>
           <div className="theme-orb">
             <div className="crater crater-1"></div>
             <div className="crater crater-2"></div>

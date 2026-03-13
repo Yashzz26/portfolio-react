@@ -17,24 +17,24 @@ import {
 import { FaMobileAlt, FaRocket } from "react-icons/fa";
 import "./LogoLoop.css";
 
+const techLogos = [
+  { node: <SiHtml5 />, title: "HTML5" },
+  { node: <SiCsswizardry />, title: "CSS3" },
+  { node: <SiJavascript />, title: "JavaScript (ES6+)" },
+  { node: <SiReact />, title: "React.js" },
+  { node: <SiNodedotjs />, title: "Node.js" },
+  { node: <SiExpress />, title: "Express.js" },
+  { node: <SiMongodb />, title: "MongoDB" },
+  { node: <FaMobileAlt />, title: "Responsive Web Design" },
+  { node: <SiGit />, title: "Git" },
+  { node: <SiGithub />, title: "GitHub" },
+  { node: <FaRocket />, title: "Web Performance Optimization" },
+  { node: <SiBootstrap />, title: "Bootstrap" },
+  { node: <SiTailwindcss />, title: "Tailwind" },
+];
+
 const Skills = () => {
   const { ref, isVisible } = useScrollAnimation();
-
-  const techLogos = [
-    { node: <SiHtml5 />, title: "HTML5" },
-    { node: <SiCsswizardry />, title: "CSS3" },
-    { node: <SiJavascript />, title: "JavaScript (ES6+)" },
-    { node: <SiReact />, title: "React.js" },
-    { node: <SiNodedotjs />, title: "Node.js" },
-    { node: <SiExpress />, title: "Express.js" },
-    { node: <SiMongodb />, title: "MongoDB" },
-    { node: <FaMobileAlt />, title: "Responsive Web Design" },
-    { node: <SiGit />, title: "Git" },
-    { node: <SiGithub />, title: "GitHub" },
-    { node: <FaRocket />, title: "Web Performance Optimization" },
-    { node: <SiBootstrap />, title: "Bootstrap" },
-    { node: <SiTailwindcss />, title: "Tailwind" },
-  ];
 
   return (
     <section

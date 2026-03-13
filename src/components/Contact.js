@@ -45,25 +45,49 @@ const Contact = () => {
 
   const handleAction = (item, index) => {
     if (item.canCopy) {
-      navigator.clipboard.writeText(item.value);
-      setCopiedIndex(index);
-      setTimeout(() => setCopiedIndex(null), 2000);
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard
+          .writeText(item.value)
+          .then(() => {
+            setCopiedIndex(index);
+            setTimeout(() => setCopiedIndex(null), 2000);
+          })
+          .catch((err) => fallbackCopy(item.value, index));
+      } else {
+        fallbackCopy(item.value, index);
+      }
     } else {
       window.open(item.link, "_blank", "noopener,noreferrer");
     }
+  };
+
+  const fallbackCopy = (text, index) => {
+    const el = document.createElement("textarea");
+    el.value = text;
+    el.style.position = "fixed";
+    el.style.opacity = "0";
+    document.body.appendChild(el);
+    el.select();
+    try {
+      document.execCommand("copy");
+      setCopiedIndex(index);
+      setTimeout(() => setCopiedIndex(null), 2000);
+    } catch (err) {
+      console.warn("Copy failed:", err);
+    }
+    document.body.removeChild(el);
   };
 
   return (
     <section
       id="contact"
       ref={ref}
-      className={`scroll-hidden from-bottom ${isVisible ? "scroll-visible" : ""}`}
-    >
+      className={`scroll-hidden from-bottom ${isVisible ? "scroll-visible" : ""}`}>
       <h2>Contact Me</h2>
 
       <p className="contact-intro">
-        Feel free to reach out for collaborations, job opportunities, or just
-        a friendly hello!
+        Feel free to reach out for collaborations, job opportunities, or just a
+        friendly hello!
       </p>
 
       <div className="contact-grid">
@@ -72,8 +96,21 @@ const Contact = () => {
             key={index}
             className={`contact-card scroll-hidden from-bottom stagger-${index + 1} ${isVisible ? "scroll-visible" : ""}`}
             onClick={() => handleAction(item, index)}
-          >
-            <div className={`copy-feedback ${copiedIndex === index ? "show" : ""}`}>
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                handleAction(item, index);
+              }
+            }}
+            tabIndex={0}
+            role="button"
+            aria-label={
+              item.canCopy
+                ? `Copy ${item.label}: ${item.value}`
+                : `Open ${item.label}`
+            }>
+            <div
+              className={`copy-feedback ${copiedIndex === index ? "show" : ""}`}>
               Copied!
             </div>
             <div className="contact-card-inner">

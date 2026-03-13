@@ -566,8 +566,15 @@ ul li {
   text-decoration: none;
 }
 
+.btn-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 /* General Link & Button Styling (e.g., Resume Button) */
 .resume-btn {
+
   display: inline-block;
   margin-top: 15px;
   color: #fff;
