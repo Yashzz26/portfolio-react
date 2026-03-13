@@ -246,8 +246,15 @@ const GitHubStats = () => {
 
                           return (
                             <div
-                              key={`\${wi}-\${di}`}
+                              key={`w${wi}d${di}`}
                               className={`gh-cell ${isDarkMode ? "dark" : "light"} level-${isOutsideYear || isFuture ? "empty" : level}`}
+                              aria-label={
+                                isFuture || isOutsideYear
+                                  ? undefined
+                                  : `${count === 0 ? "No" : count} contribution${
+                                      count !== 1 ? "s" : ""
+                                    } on ${formatDisplayDate(date)}`
+                              }
                               onMouseEnter={(e) => {
                                 if (!isFuture && !isOutsideYear) {
                                   const container =
