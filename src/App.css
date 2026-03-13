@@ -75,6 +75,20 @@ section {
   padding: 50px 0;
 }
 
+@media (max-width: 768px) {
+  .container {
+    width: 94%;
+    padding: 30px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: 100%;
+    padding: 24px 16px;
+  }
+}
+
 /* Header */
 header {
   position: relative;
@@ -90,6 +104,13 @@ header {
   top: 20px;
   right: 20px;
   z-index: 1000;
+}
+
+@media (max-width: 768px) {
+  .theme-switch-wrapper {
+    top: 14px;
+    right: 14px;
+  }
 }
 
 .theme-switch {
@@ -282,8 +303,8 @@ header {
 .profile-pic {
   display: block;
   margin: 0 auto 20px;
-  width: 250px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
   object-fit: cover;
   border-radius: 50%;
 }
@@ -458,13 +479,48 @@ ul li {
   min-width: 120px;
 }
 
+@media (max-width: 480px) {
+  .project-content {
+    padding: 20px 16px;
+  }
+  .project-card h3 {
+    font-size: 1.15rem;
+  }
+  .project-description {
+    font-size: 0.88rem;
+    margin-bottom: 18px;
+  }
+  .project-links {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .project-card a {
+    min-width: unset;
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 0.88rem;
+  }
+  .project-tags {
+    gap: 6px;
+    margin-bottom: 18px;
+  }
+  .tech-tag {
+    font-size: 0.72rem;
+    padding: 4px 10px;
+  }
+}
+
 @media (max-width: 768px) {
   .project-list {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
   .featured-card,
   .normal-card {
     grid-column: span 1;
+  }
+  .project-content {
+    padding: 24px 20px;
   }
 }
 
@@ -555,21 +611,33 @@ footer {
 /* Responsive */
 @media (max-width: 768px) {
   .profile-pic {
-    width: 120px;
-    height: 120px;
+    width: 150px;
+    height: 150px;
   }
   h1 {
     font-size: 1.8rem;
   }
   h2 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-pic {
+    width: 110px;
+    height: 110px;
+    margin-bottom: 12px;
+  }
+  h2 {
+    font-size: 1.25rem;
+    letter-spacing: 0.5px;
   }
 }
 
 /* --- MINIMAL CONTACT ME SECTION --- */
 #contact {
-  margin-top: 80px;
-  padding: 80px 0;
+  margin-top: 60px;
+  padding: 60px 0;
   border-top: 1px solid var(--border-color);
 }
 
@@ -586,7 +654,7 @@ footer {
 .contact-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  gap: 16px;
   margin-top: 30px;
 }
 
@@ -646,6 +714,7 @@ footer {
   font-size: 0.95rem;
   color: var(--secondary-text);
   word-break: break-all;
+  overflow-wrap: anywhere;
 }
 
 /* Minimal Copy Feedback */
@@ -666,34 +735,78 @@ footer {
 
 @media (max-width: 768px) {
   #contact {
+    margin-top: 40px;
     padding: 40px 0;
   }
   .contact-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .contact-card {
+    padding: 22px 14px;
+  }
+  .contact-intro {
+    font-size: 1rem;
   }
 }
 
 @media (max-width: 480px) {
   .theme-switch-wrapper {
-    top: 12px;
-    right: 12px;
+    position: static;
+    display: flex;
+    justify-content: flex-end;
+    padding: 12px 16px 0;
+    margin-bottom: -8px;
   }
   .theme-switch {
-    width: 76px;
-    height: 36px;
+    width: 80px;
+    height: 38px;
   }
   .theme-orb {
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
   }
   .light-theme .theme-orb {
-    left: calc(100% - 32px);
+    left: calc(100% - 34px);
+  }
+  header {
+    padding: 14px 0 28px;
+  }
+  header h1 {
+    font-size: 1.8rem;
+    padding: 0 16px;
+  }
+  header p {
+    font-size: 0.9rem;
+    padding: 0 16px;
+  }
+
+  #resume {
+    text-align: center;
+  }
+  .resume-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 14px 20px;
+    font-size: 1rem;
+  }
+
+  footer {
+    padding: 16px 12px;
+    font-size: 12px;
+    line-height: 1.6;
   }
 }
 
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 .cursor {
   animation: blink 0.8s step-end infinite;
@@ -723,7 +836,10 @@ footer {
   border-radius: 8px;
   padding: 16px 20px;
   margin-bottom: 12px;
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .education-card:hover {

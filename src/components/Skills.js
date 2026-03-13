@@ -39,53 +39,56 @@ const Skills = () => {
   return (
     <section
       id="skills"
-      className={`py-5 scroll-hidden from-bottom ${isVisible ? "scroll-visible" : ""}`}
+      className={`scroll-hidden from-bottom ${isVisible ? "scroll-visible" : ""}`}
       ref={ref}>
-      <div className="container">
-        <h2 className="text-center mb-4">Skills</h2>
-        <div
-          style={{ height: "120px", position: "relative", overflow: "hidden" }}>
-          <LogoLoop
-            logos={techLogos}
-            speed={80}
-            direction="left"
-            logoHeight={48}
-            gap={40}
-            hoverSpeed={20}
-            scaleOnHover
-            fadeOut={true}
-            ariaLabel="Technology skills"
-            renderItem={(item, key) => (
-              <div
-                key={key}
+      <h2>Skills</h2>
+      <div
+        style={{ height: "110px", position: "relative", overflow: "hidden" }}>
+        <LogoLoop
+          logos={techLogos}
+          speed={80}
+          direction="left"
+          logoHeight={40}
+          gap={36}
+          hoverSpeed={20}
+          scaleOnHover
+          fadeOut={true}
+          ariaLabel="Technology skills"
+          renderItem={(item, key) => (
+            <div
+              key={key}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "var(--primary-text)",
+                padding: "6px 10px",
+                width: "88px",
+                minWidth: "88px",
+              }}>
+              <span
                 style={{
+                  fontSize: "28px",
+                  lineHeight: 1,
                   display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
                   color: "var(--primary-text)",
-                  padding: "8px 12px",
-                  width: "90px",
-                  minWidth: "90px",
                 }}>
-                <span
-                  style={{ fontSize: "32px", lineHeight: 1, display: "flex" }}>
-                  {item.node}
-                </span>
-                <span
-                  style={{
-                    fontSize: "11px",
-                    marginTop: "8px",
-                    textAlign: "center",
-                    whiteSpace: "nowrap",
-                    color: "var(--secondary-text)",
-                  }}>
-                  {item.title}
-                </span>
-              </div>
-            )}
-          />
-        </div>
+                {item.node}
+              </span>
+              <span
+                style={{
+                  fontSize: "11px",
+                  marginTop: "6px",
+                  textAlign: "center",
+                  whiteSpace: "nowrap",
+                  color: "var(--secondary-text)",
+                }}>
+                {item.title}
+              </span>
+            </div>
+          )}
+        />
       </div>
     </section>
   );

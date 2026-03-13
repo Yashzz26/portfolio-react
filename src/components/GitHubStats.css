@@ -338,6 +338,47 @@
   }
 }
 
+@media (max-width: 768px) {
+  .gh-graph-wrapper::after {
+    content: "swipe to see full year";
+    display: block;
+    text-align: center;
+    font-size: 0.72rem;
+    color: var(--secondary-text);
+    margin-top: 8px;
+    opacity: 0.6;
+  }
+}
+
+@media (max-width: 480px) {
+  .gh-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .gh-profile-link {
+    padding: 0 2px;
+  }
+  .gh-stat-value {
+    font-size: 1.1rem;
+  }
+  .gh-stat-label {
+    font-size: 0.72rem;
+  }
+  .gh-stat-icon {
+    font-size: 1.4rem;
+  }
+  .gh-stat-card {
+    padding: 12px 10px;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 380px) {
+  .gh-stat-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 480px) {
   .gh-stat-cards {
     grid-template-columns: 1fr 1fr;
