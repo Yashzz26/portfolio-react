@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef, useCallback } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import useScrollAnimation from "../hooks/useScrollAnimation";
 import "./GitHubStats.css";
@@ -20,6 +20,8 @@ const GitHubStats = () => {
   const [totalContributions, setTotalContributions] = useState(0);
   const [loading, setLoading] = useState(true);
   const [tooltipData, setTooltipData] = useState(null);
+  const [activeCell, setActiveCell] = useState(null);
+  const containerRef = useRef(null);
 
   // Generate all dates for the current calendar year (Jan 1 - Dec 31)
   const generateYearDates = () => {
@@ -89,6 +91,19 @@ const GitHubStats = () => {
       day: "numeric",
     });
   };
+
+  // Click outside handler to dismiss active cell
+  const handleClickOutside = useCallback((e) => {
+    if (containerRef.current && !e.target.classList.contains('gh-cell')) {
+      setActiveCell(null);
+      setTooltipData(null);
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [handleClickOutside]);
 
   useEffect(() => {
     const fetchGitHubData = async () => {
@@ -244,25 +259,54 @@ const GitHubStats = () => {
                           const isFuture = date > today;
                           const isOutsideYear = date.getFullYear() !== thisYear;
 
+                          const cellKey = `w${wi}d${di}`;
+                          const isActive = activeCell === cellKey;
+
                           return (
                             <div
-                              key={`w${wi}d${di}`}
-                              className={`gh-cell ${isDarkMode ? "dark" : "light"} level-${isOutsideYear || isFuture ? "empty" : level}`}
+                              key={cellKey}
+                              className={`gh-cell ${isDarkMode ? "dark" : "light"} level-${isOutsideYear || isFuture ? "empty" : level}${isActive ? " active" : ""}`}
                               aria-label={
                                 isFuture || isOutsideYear
                                   ? undefined
-                                  : `${count === 0 ? "No" : count} contribution${
-                                      count !== 1 ? "s" : ""
+                                  : `${count === 0 ? "No" : count} activit${
+                                      count !== 1 ? "ies" : "y"
                                     } on ${formatDisplayDate(date)}`
                               }
-                              onMouseEnter={(e) => {
+                              onClick={(e) => {
+                                e.stopPropagation();
                                 if (!isFuture && !isOutsideYear) {
+                                  if (isActive) {
+                                    setActiveCell(null);
+                                    setTooltipData(null);
+                                  } else {
+                                    const container =
+                                      e.currentTarget.closest(".gh-container");
+                                    const containerRect =
+                                      container.getBoundingClientRect();
+                                    const cellRect =
+                                      e.currentTarget.getBoundingClientRect();
+                                    setActiveCell(cellKey);
+                                    setTooltipData({
+                                      count,
+                                      date: formatDisplayDate(date),
+                                      x:
+                                        cellRect.left -
+                                        containerRect.left +
+                                        cellRect.width / 2,
+                                      y: cellRect.top - containerRect.top,
+                                    });
+                                  }
+                                }
+                              }}
+                              onMouseEnter={(e) => {
+                                if (!isFuture && !isOutsideYear && !activeCell) {
                                   const container =
                                     e.currentTarget.closest(".gh-container");
                                   const containerRect =
                                     container.getBoundingClientRect();
                                   const cellRect =
-                                    e.target.getBoundingClientRect();
+                                    e.currentTarget.getBoundingClientRect();
                                   setTooltipData({
                                     count,
                                     date: formatDisplayDate(date),
@@ -274,7 +318,9 @@ const GitHubStats = () => {
                                   });
                                 }
                               }}
-                              onMouseLeave={() => setTooltipData(null)}
+                              onMouseLeave={() => {
+                                if (!activeCell) setTooltipData(null);
+                              }}
                             />
                           );
                         })}
@@ -353,26 +399,26 @@ const GitHubStats = () => {
               View GitHub Profile
             </a>
           </div>
+
+          {/* Tooltip */}
+          {tooltipData && (
+            <div
+              className="gh-tooltip"
+              style={{
+                left: tooltipData.x,
+                top: tooltipData.y,
+              }}>
+              <span className="gh-tooltip-count">
+                {tooltipData.count === 0
+                  ? "No activities"
+                  : `${tooltipData.count} activit${tooltipData.count !== 1 ? "ies" : "y"}`}
+              </span>
+              <span className="gh-tooltip-date">{tooltipData.date}</span>
+            </div>
+          )}
         </div>
       )}
 
-      {/* Tooltip */}
-      {tooltipData && (
-        <div
-          className="gh-tooltip"
-          style={{
-            left: tooltipData.x,
-            top: tooltipData.y,
-          }}>
-          <strong>
-            {tooltipData.count === 0
-              ? "No contributions"
-              : `${tooltipData.count} contribution${tooltipData.count !== 1 ? "s" : ""}`}
-          </strong>
-          <br />
-          {tooltipData.date}
-        </div>
-      )}
     </section>
   );
 };
